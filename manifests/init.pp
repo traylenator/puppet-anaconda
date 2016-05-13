@@ -31,7 +31,13 @@
 #
 class conda (
     $light_install    = false,
-    $download_timeout = 1800
-) {
+    $download_timeout = 1800,
+    $url = $conda::params::url,
+    $installer = $conda::params::installer,
+    $anaconda_url = $conda::params::anaconda_url,
+    $anaconda_installer = $conda::params::anaconda_installer,
+    $install_dir = $conda::params::install_dir,
+    
+) inherits conda::params {
     include conda::install
 }

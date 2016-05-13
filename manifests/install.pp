@@ -1,23 +1,25 @@
 # == Class: conda::install
 #
 # Internal class that does the installation work
-class conda::install {
-    include conda::params
+class conda::install (
+  $url = conda::url,
+
+) inherits conda {
 
     # Light install uses the miniconda installer
     if $conda::light_install {
-        $source    = $conda::params::url
-        $installer = $conda::params::installer
+        $source    = $conda::url
+        $installer = $conda::installer
     }
     else {
         # Full Anaconda install
-        $source    = $conda::params::anaconda_url
-        $installer = $conda::params::anaconda_installer
+        $source    = $conda::anaconda_url
+        $installer = $conda::anaconda_installer
     }
 
     $dl_dir         = '/tmp'
     $installer_path = "${dl_dir}/conda/${installer}"
-    $install_dir    = $conda::params::install_dir
+    $install_dir    = $conda::install_dir
 
     class {'staging':
         path  => $dl_dir,
